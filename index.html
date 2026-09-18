@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nishant Sharma — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101820;
+    --ink-2:#161f29;
+    --ink-3:#1c2733;
+    --paper:#EDEEE9;
+    --paper-dim:#c9cbc4;
+    --amber:#F2A93B;
+    --teal:#3FB8A0;
+    --line: rgba(237,238,233,0.14);
+    --muted:#8B97A0;
+    --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans:'IBM Plex Sans', -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+    --bg: var(--ink);
+    --bg-panel: var(--ink-2);
+    --bg-raise: var(--ink-3);
+    --fg: var(--paper);
+    --fg-dim: var(--paper-dim);
+    --border: var(--line);
+    --accent: var(--amber);
+    --accent-2: var(--teal);
+  }
+
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#EDEEE9;
+      --bg-panel:#E3E4DC;
+      --bg-raise:#dadbd2;
+      --fg:#141B22;
+      --fg-dim:#4B565F;
+      --border: rgba(20,27,34,0.14);
+      --accent:#B97417;
+      --accent-2:#137A68;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: var(--ink);
+    --bg-panel: var(--ink-2);
+    --bg-raise: var(--ink-3);
+    --fg: var(--paper);
+    --fg-dim: var(--paper-dim);
+    --border: var(--line);
+    --accent: var(--amber);
+    --accent-2: var(--teal);
+  }
+  :root[data-theme="light"]{
+    --bg:#EDEEE9;
+    --bg-panel:#E3E4DC;
+    --bg-raise:#dadbd2;
+    --fg:#141B22;
+    --fg-dim:#4B565F;
+    --border: rgba(20,27,34,0.14);
+    --accent:#B97417;
+    --accent-2:#137A68;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--accent);color:#161f29;}
+
+  button{font-family:inherit;}
+
+  .skip-link{
+    position:absolute;left:-9999px;top:0;
+    background:var(--accent);color:#101820;padding:8px 14px;font-family:var(--mono);font-size:.85rem;
+  }
+  .skip-link:focus{left:8px;top:8px;z-index:999;}
+
+  /* ===== Layout shell ===== */
+  .shell{
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    min-height:100vh;
+  }
+  @media (max-width: 860px){
+    .shell{grid-template-columns: 1fr;}
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    position:sticky;
+    top:0;
+    height:100vh;
+    padding:28px 22px;
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:var(--bg-panel);
+  }
+  @media (max-width: 860px){
+    .sidebar{
+      position:relative;
+      height:auto;
+      border-right:none;
+      border-bottom:1px solid var(--border);
+    }
+  }
+
+  .brand{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:1.05rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  .theme-toggle{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--fg-dim);
+    font-family:var(--mono);
+    font-size:.72rem;
+    padding:5px 9px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .theme-toggle:hover{color:var(--fg);border-color:var(--fg-dim);}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .sidebar-top{display:flex;align-items:center;justify-content:space-between;}
+
+  nav.filetree{
+    margin-top:34px;
+    font-family:var(--mono);
+    font-size:.92rem;
+  }
+  nav.filetree .path{color:var(--fg-dim);font-size:.78rem;margin-bottom:10px;letter-spacing:.02em;}
+  nav.filetree ul{list-style:none;margin:0;padding:0;}
+  nav.filetree li{margin:2px 0;}
+  nav.filetree a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 8px;
+    border-radius:3px;
+    color:var(--fg-dim);
+    border-left:2px solid transparent;
+  }
+  nav.filetree a .marker{color:var(--fg-dim);opacity:.6;}
+  nav.filetree a:hover{color:var(--fg);background:var(--bg-raise);}
+  nav.filetree a.active{
+    color:var(--fg);
+    border-left-color:var(--accent);
+    background:var(--bg-raise);
+  }
+  nav.filetree a.active .marker{color:var(--accent);opacity:1;}
+  nav.filetree a:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+  @media (max-width:860px){
+    nav.filetree{margin-top:18px;}
+    nav.filetree ul{display:flex;flex-wrap:wrap;gap:2px;}
+    nav.filetree li{margin:0;}
+  }
+
+  .sidebar-foot{
+    font-family:var(--mono);
+    font-size:.78rem;
+    color:var(--fg-dim);
+    border-top:1px solid var(--border);
+    padding-top:16px;
+    margin-top:24px;
+  }
+  .sidebar-foot a{display:block;padding:3px 0;color:var(--fg-dim);}
+  .sidebar-foot a:hover{color:var(--accent);}
+  @media (max-width:860px){ .sidebar-foot{display:none;} }
+
+  /* ===== Main ===== */
+  main{padding:0;min-width:0;}
+  section{
+    padding:72px clamp(24px,6vw,88px);
+    border-bottom:1px solid var(--border);
+    max-width:920px;
+  }
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow-prompt{
+    font-family:var(--mono);
+    font-size:.82rem;
+    color:var(--accent-2);
+    margin:0 0 18px;
+  }
+  .eyebrow-prompt .sym{color:var(--fg-dim);margin-right:6px;}
+
+  h1,h2,h3{margin:0;font-family:var(--mono);font-weight:600;letter-spacing:-0.01em;}
+  h2{font-size:clamp(1.5rem,2.4vw,1.9rem);margin-bottom:28px;}
+  p{color:var(--fg-dim);max-width:62ch;}
+
+  /* ---- Hero ---- */
+  .hero{padding-top:88px;padding-bottom:64px;}
+  .hero h1{
+    font-size:clamp(2.1rem,5vw,3.4rem);
+    line-height:1.08;
+    color:var(--fg);
+  }
+  .hero h1 .cursor{
+    display:inline-block;width:.5ch;background:var(--accent);
+    animation:blink 1.1s steps(1) infinite;
+    margin-left:4px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .hero h1 .cursor{animation:none;}
+  }
+  .hero .role{
+    font-family:var(--mono);
+    color:var(--accent);
+    margin-top:14px;
+    font-size:1.05rem;
+  }
+  .hero p.lede{margin-top:20px;font-size:1.02rem;}
+  .hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);
+    font-size:.86rem;
+    padding:11px 18px;
+    border-radius:3px;
+    border:1px solid var(--border);
+    color:var(--fg);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn.primary{background:var(--accent);color:#161207;border-color:var(--accent);}
+  .btn.primary:hover{filter:brightness(1.08);}
+  .btn:not(.primary):hover{border-color:var(--fg-dim);}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .contact-row{
+    display:flex;gap:18px;flex-wrap:wrap;margin-top:34px;
+    font-family:var(--mono);font-size:.82rem;color:var(--fg-dim);
+  }
+  .contact-row a:hover{color:var(--accent);}
+
+  /* ---- Stack diagram ---- */
+  .stack-diagram{display:flex;flex-direction:column;gap:0;margin-top:8px;}
+  .stack-layer{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:20px;
+    padding:18px 0;
+    border-top:1px solid var(--border);
+    align-items:baseline;
+  }
+  .stack-layer:first-child{border-top:none;}
+  .stack-layer .layer-label{
+    font-family:var(--mono);
+    font-size:.82rem;
+    color:var(--fg-dim);
+  }
+  .stack-layer .layer-items{
+    display:flex;flex-wrap:wrap;gap:10px 22px;
+  }
+  .stack-layer .layer-items span{
+    font-family:var(--mono);
+    font-size:.92rem;
+    color:var(--fg);
+    position:relative;
+    padding-left:14px;
+  }
+  .stack-layer .layer-items span::before{
+    content:"";
+    position:absolute;left:0;top:.5em;
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent-2);
+  }
+  .stack-note{margin-top:22px;font-size:.92rem;}
+
+  /* ---- Projects ---- */
+  .project{
+    border-top:1px solid var(--border);
+    padding:32px 0;
+  }
+  .project:first-of-type{border-top:none;padding-top:0;}
+  .project-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+  }
+  .project h3{font-size:1.15rem;}
+  .project .stackline{
+    font-family:var(--mono);font-size:.78rem;color:var(--accent-2);
+  }
+  .project ul{margin:14px 0 0;padding-left:0;list-style:none;}
+  .project li{
+    position:relative;padding-left:20px;margin:8px 0;color:var(--fg-dim);max-width:64ch;
+  }
+  .project li::before{
+    content:"›";
+    position:absolute;left:0;top:0;color:var(--accent);font-family:var(--mono);
+  }
+
+  /* ---- Experience / education ---- */
+  .entry{border-top:1px solid var(--border);padding:26px 0;}
+  .entry:first-of-type{border-top:none;padding-top:0;}
+  .entry-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline;}
+  .entry-head h3{font-size:1.05rem;}
+  .entry-head .when{font-family:var(--mono);font-size:.8rem;color:var(--fg-dim);white-space:nowrap;}
+  .entry .org{font-family:var(--mono);color:var(--accent-2);font-size:.86rem;margin-top:4px;}
+  .entry ul{margin:14px 0 0;padding-left:0;list-style:none;}
+  .entry li{position:relative;padding-left:20px;margin:7px 0;color:var(--fg-dim);max-width:64ch;}
+  .entry li::before{content:"›";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+
+  .cert-list{margin-top:8px;display:flex;flex-direction:column;gap:10px;}
+  .cert-list .cert{
+    display:flex;gap:12px;align-items:baseline;
+    font-size:.96rem;color:var(--fg-dim);
+  }
+  .cert-list .cert .tag{
+    font-family:var(--mono);font-size:.72rem;color:var(--accent);
+    border:1px solid var(--border);padding:2px 7px;border-radius:3px;white-space:nowrap;
+  }
+
+  /* ---- Contact / footer ---- */
+  .contact-block{
+    display:flex;flex-wrap:wrap;gap:14px;margin-top:24px;
+  }
+  .contact-block a{
+    font-family:var(--mono);font-size:.88rem;
+    border:1px solid var(--border);padding:10px 16px;border-radius:3px;
+    display:inline-flex;gap:8px;align-items:center;
+  }
+  .contact-block a:hover{border-color:var(--accent);color:var(--accent);}
+  footer.page-foot{
+    padding:26px clamp(24px,6vw,88px) 48px;
+    font-family:var(--mono);font-size:.76rem;color:var(--fg-dim);
+    max-width:920px;
+  }
+
+  .visually-hidden{
+    position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  }
+</style>
+</head>
+<body>
+<a href="#about" class="skip-link">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-top">
+        <div class="brand"><span class="dot"></span>Nishant Sharma</div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">theme</button>
+      </div>
+      <nav class="filetree" aria-label="Section navigation">
+        <div class="path">~/portfolio</div>
+        <ul>
+          <li><a href="#about" data-nav><span class="marker">›</span>About</a></li>
+          <li><a href="#stack" data-nav><span class="marker">›</span>stack.json</a></li>
+          <li><a href="#projects" data-nav><span class="marker">›</span>Projects</a></li>
+          <li><a href="#experience" data-nav><span class="marker">›</span>Experience</a></li>
+          <li><a href="#education" data-nav><span class="marker">›</span>Education</a></li>
+          <li><a href="#contact" data-nav><span class="marker">›</span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidebar-foot">
+      <a href="mailto:780nishantupadhayay@gmail.com">780nishantupadhayay@gmail.com</a>
+      <a href="tel:+918941035048">+91 89410 35048</a>
+      <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">linkedin.com/in/nishant-sharma</a>
+      <a href="#" style="pointer-events:none;opacity:.7;">Noida, Uttar Pradesh</a>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero" id="about" tabindex="-1">
+      <p class="eyebrow-prompt"><span class="sym">$</span>whoami</p>
+      <h1>Nishant Sharma<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="role">Computer Science Undergraduate — Full-Stack Developer</p>
+      <p class="lede">
+        Building full-stack apps and data dashboards while finishing my B.Tech in Computer Science
+        at AKTU. Comfortable across the stack — React front ends, Node/Express APIs, MongoDB and SQL
+        underneath — and equally at home pulling insight out of sales data with Power BI. I like
+        debugging problems down to the root cause more than I like leaving them alone.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" href="mailto:780nishantupadhayay@gmail.com">Get in touch</a>
+      </div>
+      <div class="contact-row">
+        <a href="mailto:780nishantupadhayay@gmail.com">780nishantupadhayay@gmail.com</a>
+        <a href="tel:+918941035048">+91 89410 35048</a>
+        <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">LinkedIn</a>
+        <span>Bareilly, Uttar Pradesh</span>
+      </div>
+    </section>
+
+    <section id="stack">
+      <p class="eyebrow-prompt"><span class="sym">$</span>cat stack.json</p>
+      <h2>Technical stack</h2>
+      <div class="stack-diagram">
+        <div class="stack-layer">
+          <div class="layer-label">frontend</div>
+          <div class="layer-items">
+            <span>React.js</span><span>Bootstrap</span><span>JavaScript</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="layer-label">backend</div>
+          <div class="layer-items">
+            <span>Node.js</span><span>Express.js</span><span>REST APIs</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="layer-label">database</div>
+          <div class="layer-items">
+            <span>MongoDB</span><span>SQL</span>
+          </div>
+        </div>
+        <div class="stack-layer">
+          <div class="layer-label">languages &amp; tools</div>
+          <div class="layer-items">
+            <span>Java (with DSA)</span><span>Python</span><span>Power BI</span>
+          </div>
+        </div>
+      </div>
+      <p class="stack-note">Each layer talks to the one below it — that's roughly how I build too:
+        UI first, then the API that feeds it, then the data underneath.</p>
+    </section>
+
+    <section id="projects">
+      <p class="eyebrow-prompt"><span class="sym">$</span>ls projects/</p>
+      <h2>Projects</h2>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>~/projects/wanderlust</h3>
+        </div>
+        <p class="stackline">Node.js · Express.js · MongoDB · Cloudinary</p>
+        <ul>
+          <li>Full-stack property listing platform with secure authentication and complete CRUD functionality.</li>
+          <li>Integrated MongoDB Atlas and Cloudinary for data storage and media management.</li>
+          <li>Designed a responsive UI backed by scalable backend services.</li>
+          <li>Built user authentication, authorization, and secure session handling.</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>~/projects/sales-revenue-dashboard</h3>
+        </div>
+        <p class="stackline">Python · Power BI · SQL</p>
+        <ul>
+          <li>Dashboard analyzing sales, revenue, and profit data end to end.</li>
+          <li>Filters by date, product, category, and region for deeper slicing.</li>
+          <li>Surfaced sales trends and top-performing products from the data.</li>
+          <li>Interactive Power BI visualizations and KPIs tracking overall business performance.</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>~/projects/stock-trading-platform</h3>
+        </div>
+        <p class="stackline">HTML · CSS · JavaScript · Java · SQL</p>
+        <ul>
+          <li>Web-based stock trading platform with stock search and live price display.</li>
+          <li>Portfolio management and transaction history built in.</li>
+          <li>Buy/Sell functionality with balance tracking and profit/loss calculation.</li>
+          <li>Responsive interface built for a smooth trading experience.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="experience">
+      <p class="eyebrow-prompt"><span class="sym">$</span>tail -f experience.log</p>
+      <h2>Experience</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Software Development Trainee / Intern</h3>
+          <span class="when">Training Program</span>
+        </div>
+        <div class="org">Apna College</div>
+        <ul>
+          <li>Worked on Python programming, data analysis, and problem-solving.</li>
+          <li>Practiced debugging and troubleshooting across coding exercises.</li>
+          <li>Built projects using Java, JavaScript, Python, and Power BI.</li>
+          <li>Created and analyzed dashboards in Power BI, working with data visualization concepts.</li>
+          <li>Worked with SQL, REST APIs, and web application development.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Web Application Development Internship</h3>
+          <span class="when">Certificate</span>
+        </div>
+        <div class="org">Tripswanky</div>
+      </div>
+    </section>
+
+    <section id="education">
+      <p class="eyebrow-prompt"><span class="sym">$</span>cat education.md</p>
+      <h2>Education &amp; certificates</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Bachelor of Technology — Computer Science &amp; Engineering</h3>
+          <span class="when">2023 – 2027</span>
+        </div>
+        <div class="org">Dr. A.P.J. Abdul Kalam Technical University (AKTU), Lucknow</div>
+      </div>
+      <div class="cert-list">
+        <div class="cert"><span class="tag">cert</span>Web Application Development Internship Certificate — Tripswanky</div>
+        <div class="cert"><span class="tag">cert</span>Java Programming Certification — Apna College</div>
+        <div class="cert"><span class="tag">cert</span>Web Development Certification — Apna College</div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="eyebrow-prompt"><span class="sym">$</span>./contact.sh</p>
+      <h2>Let's talk</h2>
+      <p>Open to internships and full-stack developer roles. The fastest way to reach me is email or LinkedIn.</p>
+      <div class="contact-block">
+        <a href="mailto:780nishantupadhayay@gmail.com">✉ 780nishantupadhayay@gmail.com</a>
+        <a href="tel:+918941035048">☎ +91 89410 35048</a>
+        <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">in/ LinkedIn</a>
+      </div>
+    </section>
+
+    <footer class="page-foot">
+      © <span id="year"></span> Nishant Sharma. Built with plain HTML &amp; CSS.
+    </footer>
+  </main>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Theme toggle: cycles system -> dark -> light
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  var stored = null;
+  try { stored = localStorage.getItem('portfolio-theme'); } catch(e) {}
+  if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
+
+  toggle.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : (current === 'light' ? null : 'dark');
+    if (next) root.setAttribute('data-theme', next);
+    else root.removeAttribute('data-theme');
+    try {
+      if (next) localStorage.setItem('portfolio-theme', next);
+      else localStorage.removeItem('portfolio-theme');
+    } catch(e) {}
+  });
+
+  // Active nav highlighting
+  var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  function setActive(){
+    var pos = window.scrollY + window.innerHeight * 0.3;
+    var activeIdx = 0;
+    for (var i = 0; i < sections.length; i++){
+      if (sections[i] && sections[i].offsetTop <= pos) activeIdx = i;
+    }
+    links.forEach(function(a, i){
+      a.classList.toggle('active', i === activeIdx);
+    });
+  }
+  setActive();
+  window.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive);
+</script>
+</body>
+</html>
