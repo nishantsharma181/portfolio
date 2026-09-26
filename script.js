@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
   // =========================================================
@@ -159,7 +157,7 @@ if (starCanvas) {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  // 1. Slow, calm floating stars
+  // Floating ambient stars
   const stars = [];
   const STAR_COUNT = 140;
 
@@ -168,20 +166,19 @@ if (starCanvas) {
       x: Math.random() * sWidth,
       y: Math.random() * sHeight,
       size: Math.random() * 1.8 + 0.6,
-      // Speed bohot dheemi kar di hai taaki halka-halka float karein
-      vx: (Math.random() - 0.5) * 0.12, 
-      vy: (Math.random() - 0.5) * 0.12, 
+      vx: (Math.random() - 0.5) * 0.12,
+      vy: (Math.random() - 0.5) * 0.12,
       baseAlpha: Math.random() * 0.7 + 0.3,
       twinkle: Math.random() * 0.02 + 0.006,
       color: Math.random() > 0.4 ? '255, 255, 255' : (Math.random() > 0.5 ? '160, 220, 255' : '255, 220, 180')
     });
   }
 
-  // 2. Multi-Meteor Cluster (Realistic gliding speed)
+  // Smooth meteors
   const activeMeteors = [];
 
   function triggerMeteorCluster() {
-    const count = Math.floor(Math.random() * 2) + 2; // 2 ya 3 taare
+    const count = Math.floor(Math.random() * 2) + 2;
     const originX = Math.random() * (sWidth * 0.5);
     const originY = Math.random() * (sHeight * 0.2);
 
@@ -190,28 +187,25 @@ if (starCanvas) {
         x: originX + (Math.random() * 140 - 70),
         y: originY + (Math.random() * 90 - 45),
         len: Math.random() * 70 + 60,
-        // Pehle speed 12-17 thi, ab ise smooth 4.5 - 6.5 kar diya hai
-        speed: Math.random() * 2 + 4.5, 
+        speed: Math.random() * 2 + 4.5,
         alpha: Math.random() * 0.3 + 0.7,
         size: Math.random() * 0.8 + 1.6
       });
     }
   }
 
-  // Har 6 se 9 second me 2-3 taare smoothly glide karenge
   setInterval(() => {
     if (activeMeteors.length === 0) {
       triggerMeteorCluster();
     }
   }, Math.random() * 3000 + 6000);
 
-  // Parallax scroll (halka scroll response)
   let lastScrollY = window.pageYOffset;
   let scrollDelta = 0;
 
   window.addEventListener('scroll', () => {
     const currentY = window.pageYOffset;
-    scrollDelta = (currentY - lastScrollY) * 0.15; // Scroll impact kam kar diya
+    scrollDelta = (currentY - lastScrollY) * 0.15;
     lastScrollY = currentY;
   });
 
@@ -222,7 +216,6 @@ if (starCanvas) {
     starCtx.clearRect(0, 0, sWidth, sHeight);
     scrollDelta *= 0.94;
 
-    // A. Floating Stars
     for (let i = 0; i < stars.length; i++) {
       const s = stars[i];
 
@@ -243,7 +236,6 @@ if (starCanvas) {
       starCtx.fill();
     }
 
-    // B. Smooth Falling Meteors
     for (let i = activeMeteors.length - 1; i >= 0; i--) {
       const m = activeMeteors[i];
 
@@ -267,7 +259,6 @@ if (starCanvas) {
       starCtx.stroke();
       starCtx.restore();
 
-      // Slow elegant forward glide
       m.x += m.speed;
       m.y += m.speed * 0.5;
 
