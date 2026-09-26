@@ -1104,4 +1104,50 @@ body {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+}/* PROJECT CARDS */
+.projects-container{
+    grid-template-columns: repeat(2,minmax(0,520px));
+    justify-content:center;
+    gap:28px;
+}
+
+.project-img-box{
+    height:220px;
+}
+
+.project-info{
+    padding:20px;
+}
+
+/* CONTACT SECTION */
+.contact-section{
+    padding:60px 20px;
+}
+
+.contact-container{
+    max-width:1200px;
+    margin:auto;
+    gap:40px;
+    align-items:center;
+}
+
+/* FORM */
+.contact-form-card{
+    padding:30px;
+}
+
+/* NAVBAR */
+.navbar{
+    width:min(92%,1180px);
+    padding:8px 24px;
+}
+
+/* HERO */
+.hero-container{
+    width:min(90%,1200px);
+}
+
+/* SECTION GAP */
+.projects-section{
+    margin:40px auto;
 }
