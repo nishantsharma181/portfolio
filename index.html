@@ -1,589 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nishant Sharma — Full-Stack Developer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#101820;
-    --ink-2:#161f29;
-    --ink-3:#1c2733;
-    --paper:#EDEEE9;
-    --paper-dim:#c9cbc4;
-    --amber:#F2A93B;
-    --teal:#3FB8A0;
-    --line: rgba(237,238,233,0.14);
-    --muted:#8B97A0;
-    --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --sans:'IBM Plex Sans', -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nishant Sharma | Full Stack Developer</title>
 
-    --bg: var(--ink);
-    --bg-panel: var(--ink-2);
-    --bg-raise: var(--ink-3);
-    --fg: var(--paper);
-    --fg-dim: var(--paper-dim);
-    --border: var(--line);
-    --accent: var(--amber);
-    --accent-2: var(--teal);
-  }
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  @media (prefers-color-scheme: light){
-    :root:not([data-theme="dark"]){
-      --bg:#EDEEE9;
-      --bg-panel:#E3E4DC;
-      --bg-raise:#dadbd2;
-      --fg:#141B22;
-      --fg-dim:#4B565F;
-      --border: rgba(20,27,34,0.14);
-      --accent:#B97417;
-      --accent-2:#137A68;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg: var(--ink);
-    --bg-panel: var(--ink-2);
-    --bg-raise: var(--ink-3);
-    --fg: var(--paper);
-    --fg-dim: var(--paper-dim);
-    --border: var(--line);
-    --accent: var(--amber);
-    --accent-2: var(--teal);
-  }
-  :root[data-theme="light"]{
-    --bg:#EDEEE9;
-    --bg-panel:#E3E4DC;
-    --bg-raise:#dadbd2;
-    --fg:#141B22;
-    --fg-dim:#4B565F;
-    --border: rgba(20,27,34,0.14);
-    --accent:#B97417;
-    --accent-2:#137A68;
-  }
+  <!-- Devicon & FontAwesome for Brand Logos -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--fg);
-    font-family:var(--sans);
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none;}
-  ::selection{background:var(--accent);color:#161f29;}
-
-  button{font-family:inherit;}
-
-  .skip-link{
-    position:absolute;left:-9999px;top:0;
-    background:var(--accent);color:#101820;padding:8px 14px;font-family:var(--mono);font-size:.85rem;
-  }
-  .skip-link:focus{left:8px;top:8px;z-index:999;}
-
-  /* ===== Layout shell ===== */
-  .shell{
-    display:grid;
-    grid-template-columns: 260px 1fr;
-    min-height:100vh;
-  }
-  @media (max-width: 860px){
-    .shell{grid-template-columns: 1fr;}
-  }
-
-  /* ===== Sidebar ===== */
-  .sidebar{
-    position:sticky;
-    top:0;
-    height:100vh;
-    padding:28px 22px;
-    border-right:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    background:var(--bg-panel);
-  }
-  @media (max-width: 860px){
-    .sidebar{
-      position:relative;
-      height:auto;
-      border-right:none;
-      border-bottom:1px solid var(--border);
-    }
-  }
-
-  .brand{
-    font-family:var(--mono);
-    font-weight:600;
-    font-size:1.05rem;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .brand .dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
-  }
-
-  .theme-toggle{
-    background:transparent;
-    border:1px solid var(--border);
-    color:var(--fg-dim);
-    font-family:var(--mono);
-    font-size:.72rem;
-    padding:5px 9px;
-    border-radius:3px;
-    cursor:pointer;
-  }
-  .theme-toggle:hover{color:var(--fg);border-color:var(--fg-dim);}
-  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-
-  .sidebar-top{display:flex;align-items:center;justify-content:space-between;}
-
-  nav.filetree{
-    margin-top:34px;
-    font-family:var(--mono);
-    font-size:.92rem;
-  }
-  nav.filetree .path{color:var(--fg-dim);font-size:.78rem;margin-bottom:10px;letter-spacing:.02em;}
-  nav.filetree ul{list-style:none;margin:0;padding:0;}
-  nav.filetree li{margin:2px 0;}
-  nav.filetree a{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 8px;
-    border-radius:3px;
-    color:var(--fg-dim);
-    border-left:2px solid transparent;
-  }
-  nav.filetree a .marker{color:var(--fg-dim);opacity:.6;}
-  nav.filetree a:hover{color:var(--fg);background:var(--bg-raise);}
-  nav.filetree a.active{
-    color:var(--fg);
-    border-left-color:var(--accent);
-    background:var(--bg-raise);
-  }
-  nav.filetree a.active .marker{color:var(--accent);opacity:1;}
-  nav.filetree a:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
-
-  @media (max-width:860px){
-    nav.filetree{margin-top:18px;}
-    nav.filetree ul{display:flex;flex-wrap:wrap;gap:2px;}
-    nav.filetree li{margin:0;}
-  }
-
-  .sidebar-foot{
-    font-family:var(--mono);
-    font-size:.78rem;
-    color:var(--fg-dim);
-    border-top:1px solid var(--border);
-    padding-top:16px;
-    margin-top:24px;
-  }
-  .sidebar-foot a{display:block;padding:3px 0;color:var(--fg-dim);}
-  .sidebar-foot a:hover{color:var(--accent);}
-  @media (max-width:860px){ .sidebar-foot{display:none;} }
-
-  /* ===== Main ===== */
-  main{padding:0;min-width:0;}
-  section{
-    padding:72px clamp(24px,6vw,88px);
-    border-bottom:1px solid var(--border);
-    max-width:920px;
-  }
-  section:last-of-type{border-bottom:none;}
-
-  .eyebrow-prompt{
-    font-family:var(--mono);
-    font-size:.82rem;
-    color:var(--accent-2);
-    margin:0 0 18px;
-  }
-  .eyebrow-prompt .sym{color:var(--fg-dim);margin-right:6px;}
-
-  h1,h2,h3{margin:0;font-family:var(--mono);font-weight:600;letter-spacing:-0.01em;}
-  h2{font-size:clamp(1.5rem,2.4vw,1.9rem);margin-bottom:28px;}
-  p{color:var(--fg-dim);max-width:62ch;}
-
-  /* ---- Hero ---- */
-  .hero{padding-top:88px;padding-bottom:64px;}
-  .hero h1{
-    font-size:clamp(2.1rem,5vw,3.4rem);
-    line-height:1.08;
-    color:var(--fg);
-  }
-  .hero h1 .cursor{
-    display:inline-block;width:.5ch;background:var(--accent);
-    animation:blink 1.1s steps(1) infinite;
-    margin-left:4px;
-  }
-  @keyframes blink{50%{opacity:0;}}
-  @media (prefers-reduced-motion: reduce){
-    .hero h1 .cursor{animation:none;}
-  }
-  .hero .role{
-    font-family:var(--mono);
-    color:var(--accent);
-    margin-top:14px;
-    font-size:1.05rem;
-  }
-  .hero p.lede{margin-top:20px;font-size:1.02rem;}
-  .hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
-  .btn{
-    font-family:var(--mono);
-    font-size:.86rem;
-    padding:11px 18px;
-    border-radius:3px;
-    border:1px solid var(--border);
-    color:var(--fg);
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
-  .btn.primary{background:var(--accent);color:#161207;border-color:var(--accent);}
-  .btn.primary:hover{filter:brightness(1.08);}
-  .btn:not(.primary):hover{border-color:var(--fg-dim);}
-  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-
-  .contact-row{
-    display:flex;gap:18px;flex-wrap:wrap;margin-top:34px;
-    font-family:var(--mono);font-size:.82rem;color:var(--fg-dim);
-  }
-  .contact-row a:hover{color:var(--accent);}
-
-  /* ---- Stack diagram ---- */
-  .stack-diagram{display:flex;flex-direction:column;gap:0;margin-top:8px;}
-  .stack-layer{
-    display:grid;
-    grid-template-columns:150px 1fr;
-    gap:20px;
-    padding:18px 0;
-    border-top:1px solid var(--border);
-    align-items:baseline;
-  }
-  .stack-layer:first-child{border-top:none;}
-  .stack-layer .layer-label{
-    font-family:var(--mono);
-    font-size:.82rem;
-    color:var(--fg-dim);
-  }
-  .stack-layer .layer-items{
-    display:flex;flex-wrap:wrap;gap:10px 22px;
-  }
-  .stack-layer .layer-items span{
-    font-family:var(--mono);
-    font-size:.92rem;
-    color:var(--fg);
-    position:relative;
-    padding-left:14px;
-  }
-  .stack-layer .layer-items span::before{
-    content:"";
-    position:absolute;left:0;top:.5em;
-    width:6px;height:6px;border-radius:50%;
-    background:var(--accent-2);
-  }
-  .stack-note{margin-top:22px;font-size:.92rem;}
-
-  /* ---- Projects ---- */
-  .project{
-    border-top:1px solid var(--border);
-    padding:32px 0;
-  }
-  .project:first-of-type{border-top:none;padding-top:0;}
-  .project-head{
-    display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
-  }
-  .project h3{font-size:1.15rem;}
-  .project .stackline{
-    font-family:var(--mono);font-size:.78rem;color:var(--accent-2);
-  }
-  .project ul{margin:14px 0 0;padding-left:0;list-style:none;}
-  .project li{
-    position:relative;padding-left:20px;margin:8px 0;color:var(--fg-dim);max-width:64ch;
-  }
-  .project li::before{
-    content:"›";
-    position:absolute;left:0;top:0;color:var(--accent);font-family:var(--mono);
-  }
-
-  /* ---- Experience / education ---- */
-  .entry{border-top:1px solid var(--border);padding:26px 0;}
-  .entry:first-of-type{border-top:none;padding-top:0;}
-  .entry-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline;}
-  .entry-head h3{font-size:1.05rem;}
-  .entry-head .when{font-family:var(--mono);font-size:.8rem;color:var(--fg-dim);white-space:nowrap;}
-  .entry .org{font-family:var(--mono);color:var(--accent-2);font-size:.86rem;margin-top:4px;}
-  .entry ul{margin:14px 0 0;padding-left:0;list-style:none;}
-  .entry li{position:relative;padding-left:20px;margin:7px 0;color:var(--fg-dim);max-width:64ch;}
-  .entry li::before{content:"›";position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
-
-  .cert-list{margin-top:8px;display:flex;flex-direction:column;gap:10px;}
-  .cert-list .cert{
-    display:flex;gap:12px;align-items:baseline;
-    font-size:.96rem;color:var(--fg-dim);
-  }
-  .cert-list .cert .tag{
-    font-family:var(--mono);font-size:.72rem;color:var(--accent);
-    border:1px solid var(--border);padding:2px 7px;border-radius:3px;white-space:nowrap;
-  }
-
-  /* ---- Contact / footer ---- */
-  .contact-block{
-    display:flex;flex-wrap:wrap;gap:14px;margin-top:24px;
-  }
-  .contact-block a{
-    font-family:var(--mono);font-size:.88rem;
-    border:1px solid var(--border);padding:10px 16px;border-radius:3px;
-    display:inline-flex;gap:8px;align-items:center;
-  }
-  .contact-block a:hover{border-color:var(--accent);color:var(--accent);}
-  footer.page-foot{
-    padding:26px clamp(24px,6vw,88px) 48px;
-    font-family:var(--mono);font-size:.76rem;color:var(--fg-dim);
-    max-width:920px;
-  }
-
-  .visually-hidden{
-    position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
-  }
-</style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<a href="#about" class="skip-link">Skip to content</a>
+  <!-- Fixed Black Hole Background Wallpaper -->
+  <div class="cosmic-bg-layer"></div>
 
-<div class="shell">
-  <aside class="sidebar">
-    <div>
-      <div class="sidebar-top">
-        <div class="brand"><span class="dot"></span>Nishant Sharma</div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">theme</button>
+  <!-- Foreground Floating & Shooting Stars Canvas (Over all elements) -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- FIXED NAVBAR -->
+  <header class="navbar-wrapper">
+    <nav class="navbar">
+      <a href="#" class="nav-logo">
+        <span class="logo-symbol">&lt;/&gt;</span>Nishant Sharma
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#projects"><i class="fa-solid fa-code-fork"></i> Projects</a></li>
+        <li><a href="#contact"><i class="fa-regular fa-envelope"></i> Contact</a></li>
+        <li><a href="https://github.com/999Akash999" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a></li>
+       
+        <li><a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+      </ul>
+
+      <a href="akash.pdf" class="btn-nav-resume" target="_blank">
+        <i class="fa-solid fa-download"></i> Resume
+      </a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION (Gap reduced & balanced) -->
+  <main class="hero-container">
+    
+    <!-- LEFT COLUMN -->
+    <section class="hero-left">
+      <div class="badge-status">
+        <span class="pulse-dot"></span>
+        <span>Available for Internships 🚀</span>
       </div>
-      <nav class="filetree" aria-label="Section navigation">
-        <div class="path">~/portfolio</div>
-        <ul>
-          <li><a href="#about" data-nav><span class="marker">›</span>About</a></li>
-          <li><a href="#stack" data-nav><span class="marker">›</span>stack.json</a></li>
-          <li><a href="#projects" data-nav><span class="marker">›</span>Projects</a></li>
-          <li><a href="#experience" data-nav><span class="marker">›</span>Experience</a></li>
-          <li><a href="#education" data-nav><span class="marker">›</span>Education</a></li>
-          <li><a href="#contact" data-nav><span class="marker">›</span>Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="sidebar-foot">
-      <a href="mailto:780nishantupadhayay@gmail.com">780nishantupadhayay@gmail.com</a>
-      <a href="tel:+918941035048">+91 89410 35048</a>
-      <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">linkedin.com/in/nishant-sharma</a>
-      <a href="#" style="pointer-events:none;opacity:.7;">Noida, Uttar Pradesh</a>
-    </div>
-  </aside>
 
-  <main>
-    <section class="hero" id="about" tabindex="-1">
-      <p class="eyebrow-prompt"><span class="sym">$</span>whoami</p>
-      <h1>Nishant Sharma<span class="cursor" aria-hidden="true"></span></h1>
-      <p class="role">Computer Science Undergraduate — Full-Stack Developer</p>
-      <p class="lede">
-        Building full-stack apps and data dashboards while finishing my B.Tech in Computer Science
-        at AKTU. Comfortable across the stack — React front ends, Node/Express APIs, MongoDB and SQL
-        underneath — and equally at home pulling insight out of sales data with Power BI. I like
-        debugging problems down to the root cause more than I like leaving them alone.
+      <p class="tagline">FULL STACK &nbsp;&bull;&nbsp; MERN &nbsp;&bull;&nbsp; JAVA</p>
+
+      <div class="title-group">
+        <span class="greeting">Hello, I'm</span>
+        <h1 class="glow-name">
+          Nishant<br>Sharma
+        </h1>
+        <h2 class="sub-role">Full Stack Developer</h2>
+      </div>
+
+      <p class="hero-desc">
+        Building modern web applications with React, Node.js, Express.js &amp; MongoDB.
       </p>
+
       <div class="hero-actions">
-        <a class="btn primary" href="#projects">View projects</a>
-        <a class="btn" href="mailto:780nishantupadhayay@gmail.com">Get in touch</a>
+        <a href="#projects" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Projects
+        </a>
+        <a href="akash.pdf" class="btn btn-glass" download>
+          <i class="fa-regular fa-file-lines"></i> Download Resume
+        </a>
       </div>
-      <div class="contact-row">
-        <a href="mailto:780nishantupadhayay@gmail.com">780nishantupadhayay@gmail.com</a>
-        <a href="tel:+918941035048">+91 89410 35048</a>
-        <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">LinkedIn</a>
-        <span>Bareilly, Uttar Pradesh</span>
+
+      <!-- Counter Strip -->
+     
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fa-regular fa-folder"></i></div>
+          <h3>4</h3>
+          <p>Projects</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3>2028</h3>
+          <p>Graduation</p>
+        </div>
       </div>
     </section>
 
-    <section id="stack">
-      <p class="eyebrow-prompt"><span class="sym">$</span>cat stack.json</p>
-      <h2>Technical stack</h2>
-      <div class="stack-diagram">
-        <div class="stack-layer">
-          <div class="layer-label">frontend</div>
-          <div class="layer-items">
-            <span>React.js</span><span>Bootstrap</span><span>JavaScript</span>
+    <!-- RIGHT COLUMN (CIRCULAR SKILLS & PROFILE) -->
+    <section class="hero-right">
+      <div class="orbit-stage">
+
+        <div class="orbit-ring"></div>
+
+        <!-- Center Profile Avatar -->
+        <div class="profile-center-glow">
+          <div class="center-photo-wrap">
+            <img src="photos/images/akash.png" alt="Akash Gangwar" class="profile-avatar" />
           </div>
         </div>
-        <div class="stack-layer">
-          <div class="layer-label">backend</div>
-          <div class="layer-items">
-            <span>Node.js</span><span>Express.js</span><span>REST APIs</span>
+
+        <!-- Rotating Orbit Icons -->
+        <div class="orbit-rotator">
+          <div class="orbit-node" style="--i: 0; --accent: #E76F00;">
+            <div class="node-circle"><i class="devicon-java-plain"></i></div>
+            <span class="node-label">Java</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 1; --accent: #F7DF1E;">
+            <div class="node-circle js-box">JS</div>
+            <span class="node-label">JavaScript</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 2; --accent: #2965F1;">
+            <div class="node-circle"><i class="devicon-css3-plain"></i></div>
+            <span class="node-label">CSS</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 3; --accent: #E34F26;">
+            <div class="node-circle"><i class="devicon-html5-plain"></i></div>
+            <span class="node-label">HTML</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 4; --accent: #00D8FF;">
+            <div class="node-circle"><i class="devicon-react-original"></i></div>
+            <span class="node-label">React</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 5; --accent: #539E43;">
+            <div class="node-circle"><i class="devicon-nodejs-plain"></i></div>
+            <span class="node-label">Node.js</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 6; --accent: #47A248;">
+            <div class="node-circle"><i class="devicon-mongodb-plain"></i></div>
+            <span class="node-label">MongoDB</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 7; --accent: #FFFFFF;">
+            <div class="node-circle text-badge">ex</div>
+            <span class="node-label">Express</span>
+          </div>
+
+          <div class="orbit-node" style="--i: 8; --accent: #FFFFFF;">
+            <div class="node-circle"><i class="fa-brands fa-github"></i></div>
+            <span class="node-label">GitHub</span>
           </div>
         </div>
-        <div class="stack-layer">
-          <div class="layer-label">database</div>
-          <div class="layer-items">
-            <span>MongoDB</span><span>SQL</span>
-          </div>
-        </div>
-        <div class="stack-layer">
-          <div class="layer-label">languages &amp; tools</div>
-          <div class="layer-items">
-            <span>Java (with DSA)</span><span>Python</span><span>Power BI</span>
-          </div>
-        </div>
-      </div>
-      <p class="stack-note">Each layer talks to the one below it — that's roughly how I build too:
-        UI first, then the API that feeds it, then the data underneath.</p>
-    </section>
 
-    <section id="projects">
-      <p class="eyebrow-prompt"><span class="sym">$</span>ls projects/</p>
-      <h2>Projects</h2>
-
-      <div class="project">
-        <div class="project-head">
-          <h3>~/projects/wanderlust</h3>
-        </div>
-        <p class="stackline">Node.js · Express.js · MongoDB · Cloudinary</p>
-        <ul>
-          <li>Full-stack property listing platform with secure authentication and complete CRUD functionality.</li>
-          <li>Integrated MongoDB Atlas and Cloudinary for data storage and media management.</li>
-          <li>Designed a responsive UI backed by scalable backend services.</li>
-          <li>Built user authentication, authorization, and secure session handling.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <div class="project-head">
-          <h3>~/projects/sales-revenue-dashboard</h3>
-        </div>
-        <p class="stackline">Python · Power BI · SQL</p>
-        <ul>
-          <li>Dashboard analyzing sales, revenue, and profit data end to end.</li>
-          <li>Filters by date, product, category, and region for deeper slicing.</li>
-          <li>Surfaced sales trends and top-performing products from the data.</li>
-          <li>Interactive Power BI visualizations and KPIs tracking overall business performance.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <div class="project-head">
-          <h3>~/projects/stock-trading-platform</h3>
-        </div>
-        <p class="stackline">HTML · CSS · JavaScript · Java · SQL</p>
-        <ul>
-          <li>Web-based stock trading platform with stock search and live price display.</li>
-          <li>Portfolio management and transaction history built in.</li>
-          <li>Buy/Sell functionality with balance tracking and profit/loss calculation.</li>
-          <li>Responsive interface built for a smooth trading experience.</li>
-        </ul>
       </div>
     </section>
-
-    <section id="experience">
-      <p class="eyebrow-prompt"><span class="sym">$</span>tail -f experience.log</p>
-      <h2>Experience</h2>
-      <div class="entry">
-        <div class="entry-head">
-          <h3>Software Development Trainee / Intern</h3>
-          <span class="when">Training Program</span>
-        </div>
-        <div class="org">Apna College</div>
-        <ul>
-          <li>Worked on Python programming, data analysis, and problem-solving.</li>
-          <li>Practiced debugging and troubleshooting across coding exercises.</li>
-          <li>Built projects using Java, JavaScript, Python, and Power BI.</li>
-          <li>Created and analyzed dashboards in Power BI, working with data visualization concepts.</li>
-          <li>Worked with SQL, REST APIs, and web application development.</li>
-        </ul>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <h3>Web Application Development Internship</h3>
-          <span class="when">Certificate</span>
-        </div>
-        <div class="org">Tripswanky</div>
-      </div>
-    </section>
-
-    <section id="education">
-      <p class="eyebrow-prompt"><span class="sym">$</span>cat education.md</p>
-      <h2>Education &amp; certificates</h2>
-      <div class="entry">
-        <div class="entry-head">
-          <h3>Bachelor of Technology — Computer Science &amp; Engineering</h3>
-          <span class="when">2023 – 2027</span>
-        </div>
-        <div class="org">Dr. A.P.J. Abdul Kalam Technical University (AKTU), Lucknow</div>
-      </div>
-      <div class="cert-list">
-        <div class="cert"><span class="tag">cert</span>Web Application Development Internship Certificate — Tripswanky</div>
-        <div class="cert"><span class="tag">cert</span>Java Programming Certification — Apna College</div>
-        <div class="cert"><span class="tag">cert</span>Web Development Certification — Apna College</div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <p class="eyebrow-prompt"><span class="sym">$</span>./contact.sh</p>
-      <h2>Let's talk</h2>
-      <p>Open to internships and full-stack developer roles. The fastest way to reach me is email or LinkedIn.</p>
-      <div class="contact-block">
-        <a href="mailto:780nishantupadhayay@gmail.com">✉ 780nishantupadhayay@gmail.com</a>
-        <a href="tel:+918941035048">☎ +91 89410 35048</a>
-        <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noopener">in/ LinkedIn</a>
-      </div>
-    </section>
-
-    <footer class="page-foot">
-      © <span id="year"></span> Nishant Sharma. Built with plain HTML &amp; CSS.
-    </footer>
   </main>
-</div>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="projects-section">
+    <div class="section-header">
+      <span class="section-badge">Portfolio</span>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-subtitle">
+        Here are some of the full-stack and AI applications I've built recently.
+      </p>
+    </div>
 
-  // Theme toggle: cycles system -> dark -> light
-  var root = document.documentElement;
-  var toggle = document.getElementById('themeToggle');
-  var stored = null;
-  try { stored = localStorage.getItem('portfolio-theme'); } catch(e) {}
-  if (stored === 'dark' || stored === 'light') root.setAttribute('data-theme', stored);
+    <div class="projects-container">
+      <!-- Project 1 -->
+      <article class="project-card">
+        <div class="project-img-box">
+          <img src="photos/images/makeyourtrip.png" alt="Make Your Trip Preview" />
+          <div class="project-overlay">
+            <a href="https://github.com/999Akash999/Make-Your-Trip.git" target="_blank" class="overlay-btn" title="View Code">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://make-your-trip-90sr.onrender.com/" target="_blank" class="overlay-btn" title="Live Preview">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-tags">
+            <span>Node.js</span><span>Express</span><span>MongoDB</span><span>EJS</span>
+          </div>
+          <h3>Make Your Trip</h3>
+          <p>Comprehensive travel booking platform featuring itinerary planning and dynamic package reservation workflows.</p>
+          <div class="project-links">
+            <a href="https://make-your-trip-90sr.onrender.com/" target="_blank" class="proj-link live">Live Demo <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/999Akash999" target="_blank" class="proj-link github"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
 
-  toggle.addEventListener('click', function(){
-    var current = root.getAttribute('data-theme');
-    var next = current === 'dark' ? 'light' : (current === 'light' ? null : 'dark');
-    if (next) root.setAttribute('data-theme', next);
-    else root.removeAttribute('data-theme');
-    try {
-      if (next) localStorage.setItem('portfolio-theme', next);
-      else localStorage.removeItem('portfolio-theme');
-    } catch(e) {}
-  });
+      <!-- Project 2 -->
+      <article class="project-card">
+        <div class="project-img-box">
+          <img src="photos/images/gpt.jpg" alt="AkashGPT Preview" />
+          <div class="project-overlay">
+            <a href="https://github.com/999Akash999" target="_blank" class="overlay-btn" title="View Code">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="#" target="_blank" class="overlay-btn" title="Live Preview">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>SambaNova API</span><span>MongoDB</span>
+          </div>
+          <h3>AkashGPT</h3>
+          <p>AI chat application delivering fast inference via SambaNova Cloud API with persistent chat session storage.</p>
+          <div class="project-links">
+            <a href="https://akash-gpt-1.onrender.com/" target="_blank" class="proj-link live">Live Demo <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/999Akash999" target="_blank" class="proj-link github"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
 
-  // Active nav highlighting
-  var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
-  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+      <!-- Project 3 -->
+      <article class="project-card">
+        <div class="project-img-box">
+          <img src="photos/images/zerodha.png" alt="Zerodha Clone Preview" />
+          <div class="project-overlay">
+            <a href="https://github.com/999Akash999/zerodha-clone.git" target="_blank" class="overlay-btn" title="View Code">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://zerodha-clone-1-zjom.onrender.com/" target="_blank" class="overlay-btn" title="Live Preview">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-tags">
+            <span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+          </div>
+          <h3>Zerodha Clone</h3>
+          <p>Trading platform simulation featuring real-time watchlists, simulated order books, and balance tracking.</p>
+          <div class="project-links">
+            <a href="#" target="_blank" class="proj-link live">Live Demo <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/999Akash999/zerodha-clone.git" target="_blank" class="proj-link github"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
 
-  function setActive(){
-    var pos = window.scrollY + window.innerHeight * 0.3;
-    var activeIdx = 0;
-    for (var i = 0; i < sections.length; i++){
-      if (sections[i] && sections[i].offsetTop <= pos) activeIdx = i;
-    }
-    links.forEach(function(a, i){
-      a.classList.toggle('active', i === activeIdx);
-    });
-  }
-  setActive();
-  window.addEventListener('scroll', setActive, { passive: true });
-  window.addEventListener('resize', setActive);
-</script>
+      <!-- Project 4 -->
+      <article class="project-card">
+        <div class="project-img-box">
+          <img src="photos/images/resin.jpg" alt="ResinCraft Preview" />
+          <div class="project-overlay">
+            <a href="https://github.com/999Akash999" target="_blank" class="overlay-btn" title="View Code">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="#" target="_blank" class="overlay-btn" title="Live Preview">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-tags">
+            <span>MERN Stack</span><span>REST API</span><span>Tailwind</span>
+          </div>
+          <h3>ResinCraft</h3>
+          <p>E-commerce portal for custom resin artworks with dynamic checkout flow and product inquiries.</p>
+          <div class="project-links">
+            <a href="#" target="_blank" class="proj-link live">Live Demo <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/999Akash999" target="_blank" class="proj-link github"><i class="fa-brands fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- REDESIGNED CLIENT CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      
+      <!-- Left Column: Personal Touch & Information -->
+      <div class="contact-info">
+        <span class="sub-heading"><i class="fa-solid fa-bolt"></i> CONNECT WITH ME</span>
+        <h2>Let's build something extraordinary together.</h2>
+        <p>
+          Whether you have a freelance project, internship opportunity, or collaboration idea, feel free to drop a message.
+        </p>
+
+        <div class="contact-cards-group">
+            <a href="tel:+918941035048" class="c-card">
+  <div class="c-card-icon"><i class="fa-solid fa-phone"></i></div>
+  <div class="c-card-detail">
+    <span class="c-tag">Call Directly</span>
+    <p>+91 89410 35048</p>
+  </div>
+  <i class="fa-solid fa-arrow-right c-arrow"></i>
+</a>
+        </div>
+        <div class="contact-cards-group">
+          <a href="mailto:780nishantupadhayay@gmail.com" class="c-card">
+            <div class="c-card-icon"><i class="fa-regular fa-envelope"></i></div>
+            <div class="c-card-detail">
+              <span class="c-tag">Drop an Email</span>
+              <p>780nishantupadhayay@gmail.com</p>
+            </div>
+            <i class="fa-solid fa-arrow-right c-arrow"></i>
+          </a>
+
+          <div class="c-card">
+            <div class="c-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="c-card-detail">
+              <span class="c-tag">Current Location</span>
+              <p>Bareilly, Uttar Pradesh, India (Open to Remote)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-shelf">
+          <span class="shelf-title">Social Profiles</span>
+          <div class="social-pill-container">
+            <a href="https://github.com/999Akash999" target="_blank" rel="noreferrer" class="social-pill">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/nishant-sharma-098b5b379" target="_blank" rel="noreferrer" class="social-pill">
+              <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+            </a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Glassmorphic Interactive Form -->
+      <div class="contact-form-card">
+        <div class="form-header">
+          <h3>Send a Message</h3>
+          <p>I typically respond within 2-4 hours.</p>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <input type="hidden" name="access_key" value="cd81fc35-13fd-473b-8732-7840ea61a2d7">
+
+          <div class="form-row">
+            <div class="input-field">
+              <label for="name">Your Name</label>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <label for="email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-field">
+            <label for="subject">Project or Topic</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-briefcase"></i>
+              <input type="text" id="subject" name="subject" placeholder="e.g., Full Stack Project Inquiry" required>
+            </div>
+          </div>
+
+          <div class="input-field">
+            <label for="message">Your Message</label>
+            <div class="input-wrapper text-area-wrapper">
+              <i class="fa-regular fa-comment-dots"></i>
+              <textarea id="message" name="message" rows="4" placeholder="Tell me about your timeline, deliverables, or thoughts..." required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span>Send Message</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+          
+          <div id="form-status" class="status-box"></div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
