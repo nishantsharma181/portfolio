@@ -48,19 +48,19 @@ body {
   filter: brightness(0.85) contrast(1.1);
 }
 
-/* Foreground Floating & Shooting Stars Canvas (Floating over content) */
+/* Foreground Floating & Shooting Stars Canvas */
 #starsCanvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none; /* User clicks and hover will never be blocked */
-  z-index: 999;         /* Floating in front of hero and projects */
+  pointer-events: none;
+  z-index: 999;
 }
 
 /* =========================================================
-   FIXED NAVBAR (REDUCED GAP & BALANCED)
+   FIXED NAVBAR
    ========================================================= */
 .navbar-wrapper {
   position: fixed;
@@ -150,7 +150,7 @@ body {
 }
 
 /* =========================================================
-   HERO SECTION (TIGHTENED TOP PADDING TO FIX EXTRA GAP)
+   HERO SECTION
    ========================================================= */
 .hero-container {
   position: relative;
@@ -162,7 +162,7 @@ body {
   grid-template-columns: 1.05fr 1.15fr;
   align-items: center;
   gap: 30px;
-  padding: 80px 0 20px; /* Reduced gap from navbar */
+  padding: 80px 0 20px;
 }
 
 .hero-left {
@@ -313,12 +313,6 @@ body {
   font-size: 0.78rem;
   color: var(--text-muted);
   margin-top: 6px;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 48px;
-  background: var(--border-glass);
 }
 
 /* =========================================================
@@ -490,8 +484,8 @@ body {
   position: relative;
   z-index: 10;
   width: min(92%, 1240px);
-  margin: 60px auto 60px;
-  padding-top: 20px;
+  margin: 60px auto 100px;
+  padding-top: 30px;
 }
 
 .section-header {
@@ -688,7 +682,7 @@ body {
    CONTACT SECTION
    ========================================================= */
 .contact-section {
-  padding: 90px 20px 100px;
+  padding: 40px 20px 100px;
   position: relative;
   z-index: 10;
 }
@@ -698,8 +692,8 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.15fr;
-  gap: 60px;
-  align-items: start;
+  gap: 50px;
+  align-items: flex-start;
 }
 
 .contact-info .sub-heading {
@@ -725,24 +719,24 @@ body {
   color: var(--text-muted);
   line-height: 1.7;
   font-size: 1.05rem;
-  margin-bottom: 35px;
+  margin-bottom: 24px;
 }
 
 .contact-cards-group {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 40px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .c-card {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   background: rgba(13, 16, 38, 0.6);
   border: 1px solid var(--border-glass);
-  padding: 16px 22px;
-  border-radius: 16px;
+  padding: 14px 20px;
+  border-radius: 14px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -754,8 +748,8 @@ body {
 }
 
 .c-card-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   background: rgba(122, 90, 248, 0.15);
   border: 1px solid rgba(122, 90, 248, 0.3);
@@ -835,14 +829,14 @@ body {
   background: rgba(13, 16, 38, 0.75);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  padding: 40px;
+  padding: 38px 40px;
   border-radius: 24px;
   border: 1px solid rgba(130, 115, 255, 0.25);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .form-header {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 
 .form-header h3 {
@@ -860,7 +854,7 @@ body {
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .form-row {
@@ -1006,7 +1000,7 @@ body {
   }
   .contact-container {
     grid-template-columns: 1fr;
-    gap: 50px;
+    gap: 40px;
   }
   .form-row {
     grid-template-columns: 1fr;
@@ -1051,103 +1045,4 @@ body {
   .contact-form-card {
     padding: 24px;
   }
-}
-/* Container ko top se lock karein */
-.contact-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 50px;
-  align-items: flex-start; /* Form aur info hamesha top se barabar start honge */
-}
-
-/* 3 Cards aane par spacing ko compact karein taaki form ke barabar height rahe */
-.contact-cards-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* 16px se kam karke 12px */
-  margin-bottom: 25px; /* 40px se kam karke 25px */
-}
-
-.c-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: rgba(13, 16, 38, 0.6);
-  border: 1px solid var(--border-glass);
-  padding: 12px 18px; /* 16px se 12px kar diya */
-  border-radius: 14px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.c-card-icon {
-  width: 42px;
-  height: 42px;
-  font-size: 1.1rem;
-}
-
-.contact-info p {
-  margin-bottom: 20px; /* Text ke baad extra space kam kiya */
-}@media (max-width: 1024px) {
-  /* Agar screen 1024px se thodi choti hai tab bhi dono side-by-side rahein */
-  .contact-container {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 30px;
-  }
-}
-
-/* Sirf pure mobile (768px se niche) par hi form niche jaye */
-@media (max-width: 768px) {
-  .contact-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}/* PROJECT CARDS */
-.projects-container{
-    grid-template-columns: repeat(2,minmax(0,520px));
-    justify-content:center;
-    gap:28px;
-}
-
-.project-img-box{
-    height:220px;
-}
-
-.project-info{
-    padding:20px;
-}
-
-/* CONTACT SECTION */
-.contact-section{
-    padding:60px 20px;
-}
-
-.contact-container{
-    max-width:1200px;
-    margin:auto;
-    gap:40px;
-    align-items:center;
-}
-
-/* FORM */
-.contact-form-card{
-    padding:30px;
-}
-
-/* NAVBAR */
-.navbar{
-    width:min(92%,1180px);
-    padding:8px 24px;
-}
-
-/* HERO */
-.hero-container{
-    width:min(90%,1200px);
-}
-
-/* SECTION GAP */
-.projects-section{
-    margin:40px auto;
 }
